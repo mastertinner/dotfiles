@@ -206,13 +206,6 @@ pacu() {
         processes+=("$!")
     fi
 
-    # Rust
-    if [ -x "$(command -v rustup)" ]; then
-        printf '\e[1mUpdating rustup components\e[0m\n'
-        (rustup update) &
-        processes+=("$!")
-    fi
-
     # npm
     if [ -x "$(command -v npm)" ]; then
         printf '\e[1mUpdating globally installed npm packages\e[0m\n'
@@ -229,8 +222,7 @@ pacu() {
     # Neovim
     if [ -x "$(command -v nvim)" ]; then
         printf '\e[1mUpdating Vim plugins\e[0m\n'
-        nvim --headless -c 'PlugUpgrade | PlugClean! | PlugUpdate | qa'
-        nvim --headless -c 'UpdateRemotePlugins | qa'
+        nvim --headless -c 'PackerSync | qa'
     fi
 
     # Wait for all processes to finish
